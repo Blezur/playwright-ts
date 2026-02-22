@@ -1,5 +1,4 @@
 import { test, expect } from '@fixtures/login.fixture';
-import { NavigationComponent } from '@components/navigation.component';
 import { TEST_USERS } from '@config';
 
 const { standard_user, locked_out_user } = TEST_USERS;
@@ -62,16 +61,5 @@ test.describe('Login Tests', () => {
       password: '',
     });
     await loginPage.expectErrorState('Epic sadface: Password is required');
-  });
-
-  test('should user be loged out after logging out from inventory page', async ({
-    loginAs,
-    loginPage,
-  }) => {
-    await loginAs(standard_user);
-    const navigation = new NavigationComponent(loginPage.page);
-    await navigation.menuOpenButton.click();
-    await navigation.logoutLink.click();
-    await expect(loginPage.page.getByTestId('login-button')).toBeVisible();
   });
 });

@@ -1,4 +1,4 @@
-import { test, expect } from '@fixtures/login.fixture';
+import { test } from '@fixtures/login.fixture';
 
 test.describe('Access Restriction Tests', () => {
   const restrictedPaths = [
@@ -9,7 +9,7 @@ test.describe('Access Restriction Tests', () => {
     'checkout-step-two.html',
     'checkout-complete.html',
   ];
-  for (const path of restrictedPaths) {
+  restrictedPaths.forEach((path) => {
     test(`should restrict access to ${path} for unauthenticated users`, async ({
       loginPage,
     }) => {
@@ -20,5 +20,5 @@ test.describe('Access Restriction Tests', () => {
         `Epic sadface: You can only access '/${cleanPath}' when you are logged in.`,
       );
     });
-  }
+  });
 });
