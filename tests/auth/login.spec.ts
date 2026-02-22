@@ -1,19 +1,22 @@
-import { TEST_USERS } from '@config';
 import { test, expect } from '@fixtures/login.fixture';
+import { NavigationComponent } from '@components/navigation.component';
+import { TEST_USERS } from '@config';
+
+const { standard_user, locked_out_user } = TEST_USERS;
 
 test.describe('Login Tests', () => {
   test('should login as standard user and land on inventory page', async ({
     loginAs,
     page,
   }) => {
-    await loginAs(TEST_USERS.standard_user);
+    await loginAs(standard_user);
     await expect(page.getByTestId('inventory-container')).toBeVisible();
   });
 
   test('should show error message when logging in with locked out user', async ({
     loginPage,
   }) => {
-    await loginPage.login(TEST_USERS.locked_out_user);
+    await loginPage.login(locked_out_user);
     await loginPage.expectErrorState(
       'Epic sadface: Sorry, this user has been locked out.',
     );
@@ -59,5 +62,16 @@ test.describe('Login Tests', () => {
       password: '',
     });
     await loginPage.expectErrorState('Epic sadface: Password is required');
+  });
+
+  test('should user be loged out after logging out from inventory page', async ({
+    loginAs,
+    loginPage,
+  }) => {
+    await loginAs(standard_user);
+    const navigation = new NavigationComponent(loginPage.page);
+    await navigation.menuOpenButton.click();
+    await navigation.logoutLink.click();
+    await expect(loginPage.page.getByTestId('login-button')).toBeVisible();
   });
 });
