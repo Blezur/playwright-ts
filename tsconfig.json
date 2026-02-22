@@ -13,6 +13,7 @@
     "types": ["@playwright/test", "node"],
     "paths": {
       "@config": ["./src/config.ts"],
+      "@components/*": ["./src/components/*"],
       "@fixtures/*": ["./src/fixtures/*"],
       "@pages/*": ["./src/pages/*"],
       "@helpers/*": ["./src/helpers/*"]
