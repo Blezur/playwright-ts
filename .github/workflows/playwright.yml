@@ -26,14 +26,12 @@ on:
           - webkit
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
   pull-requests: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -91,6 +89,22 @@ jobs:
         path: playwright-report/
         retention-days: 30
 
+    - name: Deploy report to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      if: ${{ !cancelled() }}
+      with:
+        folder: playwright-report
+        target-folder: >-
+          ${{ github.event_name == 'pull_request'
+            && format('pr-{0}', github.event.number)
+            || github.event_name == 'workflow_dispatch'
+            && format('manual-{0}', github.run_id)
+            || '.' }}
+        clean: true
+        clean-exclude: |
+          pr-*
+          manual-*
+
     - name: Post report link as PR comment
       uses: actions/github-script@v7
       if: ${{ !cancelled() && github.event_name == 'pull_request' }}
@@ -98,11 +112,13 @@ jobs:
         script: |
           const owner = context.repo.owner;
           const repo = context.repo.repo;
+          const pages_url = `https://${owner}.github.io/${repo}`;
+          const report_url = `${pages_url}/pr-${context.issue.number}/`;
           const run_url = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
           const body = [
             '## Playwright Test Report',
             '',
-            `📊 [Download report](${run_url}#artifacts)`,
+            `📊 [View report](${report_url})`,
             '',
             `_Run: [#${context.runId}](${run_url}) • ${new Date().toUTCString()}_`,
           ].join('\n');
@@ -118,21 +134,3 @@ jobs:
           } else {
             await github.rest.issues.createComment({ owner, repo, issue_number: context.issue.number, body });
           }
-
-    - name: Upload report for GitHub Pages
-      uses: actions/upload-pages-artifact@v3
-      if: ${{ !cancelled() && github.event_name == 'push' }}
-      with:
-        path: playwright-report/
-
-  deploy-report:
-    needs: test
-    if: ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
