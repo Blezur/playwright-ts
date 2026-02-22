@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "packageManager": "pnpm@10.26.1",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -14,6 +23,7 @@
     "@types/node": "^25.3.0",
     "eslint": "^10.0.1",
     "eslint-plugin-playwright": "^2.7.0",
+    "jiti": "^2.6.1",
     "typescript-eslint": "^8.56.0"
   }
 }

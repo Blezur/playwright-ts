@@ -10,9 +10,10 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": ".",
-    "types": ["@playwright/test"]
+    "types": ["@playwright/test", "node"]
   },
   "include": [
+    "src/**/*.ts",
     "tests/**/*.ts",
     "playwright.config.ts",
     "eslint.config.ts"

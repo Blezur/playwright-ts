@@ -33,13 +33,19 @@ export default defineConfig([
     },
     rules: {
       // TypeScript-specific
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
-      '@typescript-eslint/no-floating-promises': 'error',  // critical in Playwright!
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports' },
+      ],
+      '@typescript-eslint/no-floating-promises': 'error', // critical in Playwright!
       '@typescript-eslint/await-thenable': 'error',
       '@typescript-eslint/require-await': 'error',
 
@@ -54,15 +60,16 @@ export default defineConfig([
   {
     ...playwright.configs['flat/recommended'],
     files: ['**/*.spec.ts', '**/*.test.ts', '**/tests/**/*.ts'],
-  },
-  {
-    files: ['**/*.spec.ts', '**/*.test.ts', '**/tests/**/*.ts'],
-    plugins: { playwright },
     rules: {
       ...playwright.configs['flat/recommended'].rules,
-      'playwright/expect-expect': 'error',
+      'playwright/expect-expect': [
+        'error',
+        {
+          assertFunctionNames: ['expectErrorState'],
+        },
+      ],
       'playwright/no-skipped-test': 'warn',
-      'playwright/no-focused-tests': 'error',        // blocks accidental .only
+      'playwright/no-focused-test': 'error', // blocks accidental .only
       'playwright/no-wait-for-timeout': 'warn',
       'playwright/no-networkidle': 'warn',
       'playwright/prefer-web-first-assertions': 'error',
