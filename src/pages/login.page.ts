@@ -1,5 +1,5 @@
-import { Locator, Page, expect } from '@playwright/test';
-import { TestUser } from '@config';
+import { Page, expect } from '@playwright/test';
+import type { TestUser } from '@config';
 
 export class LoginPage {
   constructor(readonly page: Page) {}
@@ -8,7 +8,7 @@ export class LoginPage {
     return this.page.getByTestId('username');
   }
 
-    get passwordInput() {
+  get passwordInput() {
     return this.page.getByTestId('password');
   }
 
