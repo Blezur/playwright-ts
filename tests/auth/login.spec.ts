@@ -1,5 +1,5 @@
-import { TEST_USERS } from '../../src/config';
-import { test, expect } from '../../src/fixtures/login.fixture';
+import { TEST_USERS } from '@config';
+import { test, expect } from '@fixtures/login.fixture';
 
 test.describe('Login Tests', () => {
   test('should login as standard user and land on inventory page', async ({

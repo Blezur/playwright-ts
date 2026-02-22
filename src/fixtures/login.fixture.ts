@@ -1,5 +1,5 @@
-import { TestUser } from '../config';
-import { LoginPage } from '../pages/login.page';
+import { TestUser } from '@config';
+import { LoginPage } from '@pages/login.page';
 import { test as base } from '@playwright/test';
 
 type LoginFixtures = {
@@ -11,8 +11,7 @@ export const test = base.extend<LoginFixtures>({
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },
-  loginAs: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
+  loginAs: async ({ loginPage }, use) => {
     await use(async (user: TestUser) => {
       await loginPage.login(user);
     });
