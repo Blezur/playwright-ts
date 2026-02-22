@@ -25,20 +25,51 @@
 
 ```
 ├── src/
-│   ├── config.ts               # Test user definitions
+│   ├── config.ts                          # Test users and URL constants
+│   ├── components/
+│   │   └── navigation.component.ts        # Shared navigation (menu, cart, footer)
 │   ├── fixtures/
-│   │   └── login.fixture.ts    # Custom Playwright fixtures
+│   │   ├── login.fixture.ts               # loginPage, loginAs fixtures
+│   │   └── inventory.fixture.ts           # inventoryListPage, checkout fixtures
 │   └── pages/
-│       └── login.page.ts       # Page Object Model — Login
+│       ├── login.page.ts                  # Login page
+│       ├── inventory/
+│       │   └── inventory-list.page.ts     # Product list page
+│       └── checkout/
+│           ├── step.page.ts               # Base class for checkout steps
+│           ├── cart.page.ts               # Cart page
+│           ├── step-one.page.ts           # Checkout: personal information
+│           ├── step-two.page.ts           # Checkout: order overview
+│           └── checkout-complete.page.ts  # Order confirmation
 ├── tests/
-│   └── auth/
-│       └── login.spec.ts       # Login test scenarios
+│   ├── auth/
+│   │   ├── login.spec.ts                  # Login scenarios (positive & negative)
+│   │   ├── logout.spec.ts                 # Logout functionality
+│   │   └── access-restriction.spec.ts     # Unauthenticated access restrictions
+│   ├── inventory/
+│   │   ├── inventory-list.spec.ts         # Product list and cart interactions
+│   │   └── navigation.spec.ts             # Menu, footer and social links
+│   └── e2e/
+│       └── buy-flow.e2e.spec.ts           # Full purchase flow end-to-end
 ├── .github/
 │   └── workflows/
-│       └── playwright.yml      # CI/CD pipeline
-├── Dockerfile                  # Containerized test runner
-└── playwright.config.ts        # Global Playwright configuration
+│       └── playwright.yml                 # CI/CD pipeline
+├── Dockerfile                             # Containerized test runner
+└── playwright.config.ts                   # Global Playwright configuration
 ```
+
+---
+
+## Test Coverage
+
+| Area | Scenarios |
+|---|---|
+| **Login** | Successful login, locked out user, invalid credentials, empty fields |
+| **Logout** | Logout via navigation menu |
+| **Access restriction** | 6 protected routes redirect unauthenticated users |
+| **Inventory** | Item count, add/remove from cart, cart badge |
+| **Navigation** | Menu open/close, social media links, footer copyright, about page |
+| **E2E buy flow** | Login → add item → cart → checkout → confirmation → back to inventory |
 
 ---
 

@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 import { StepPage } from './step.page';
 
 export class StepTwoPage extends StepPage {
-  constructor(readonly page: Page) {
+  constructor(page: Page) {
     super(page);
   }
 
