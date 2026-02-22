@@ -1,6 +1,6 @@
 import { test, expect } from '@fixtures/login.fixture';
 import { NavigationComponent } from '@components/navigation.component';
-import { TEST_USERS } from '@config';
+import { TEST_USERS, URLS } from '@config';
 
 const { standard_user } = TEST_USERS;
 
@@ -24,15 +24,15 @@ test.describe('Navigation Tests', () => {
   test('should social media links have correct href attributes', async () => {
     await expect(navigationComponent.socialTwitterLink).toHaveAttribute(
       'href',
-      'https://twitter.com/saucelabs',
+      URLS.TWITTER_URL,
     );
     await expect(navigationComponent.socialFacebookLink).toHaveAttribute(
       'href',
-      'https://www.facebook.com/saucelabs',
+      URLS.FACEBOOK_URL,
     );
     await expect(navigationComponent.socialLinkedInLink).toHaveAttribute(
       'href',
-      'https://www.linkedin.com/company/sauce-labs/',
+      URLS.LINKEDIN_URL,
     );
   });
 
@@ -46,6 +46,6 @@ test.describe('Navigation Tests', () => {
   test('should navigate to about page when clicking about link', async ({ page }) => {
     await navigationComponent.menuOpenButton.click();
     await navigationComponent.aboutLink.click();
-    await expect(page).toHaveURL('https://saucelabs.com/');
+    await expect(page).toHaveURL(URLS.ABOUT_US_URL);
   });
 });

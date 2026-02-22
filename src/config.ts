@@ -31,3 +31,10 @@ export const TEST_USERS: Record<string, TestUser> = {
     password: DEFAULT_PASSWORD,
   },
 } as const;
+
+export const URLS = {
+  ABOUT_US_URL: 'https://saucelabs.com/',
+  TWITTER_URL: 'https://twitter.com/saucelabs',
+  FACEBOOK_URL: 'https://www.facebook.com/saucelabs',
+  LINKEDIN_URL: 'https://www.linkedin.com/company/sauce-labs/',
+} as const;
