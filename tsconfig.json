@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": ".",
-    "types": ["@playwright/test"]
+    "types": ["@playwright/test", "node"]
   },
   "include": [
     "tests/**/*.ts",

@@ -54,15 +54,11 @@ export default defineConfig([
   {
     ...playwright.configs['flat/recommended'],
     files: ['**/*.spec.ts', '**/*.test.ts', '**/tests/**/*.ts'],
-  },
-  {
-    files: ['**/*.spec.ts', '**/*.test.ts', '**/tests/**/*.ts'],
-    plugins: { playwright },
     rules: {
       ...playwright.configs['flat/recommended'].rules,
       'playwright/expect-expect': 'error',
       'playwright/no-skipped-test': 'warn',
-      'playwright/no-focused-tests': 'error',        // blocks accidental .only
+      'playwright/no-focused-test': 'error',         // blocks accidental .only
       'playwright/no-wait-for-timeout': 'warn',
       'playwright/no-networkidle': 'warn',
       'playwright/prefer-web-first-assertions': 'error',
