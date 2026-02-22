@@ -6,11 +6,12 @@ test.describe('Logout Functionality', () => {
       test('should user be logged out after logging out from inventory page', async ({
         loginAs,
         loginPage,
+        page,
       }) => {
         await loginAs(TEST_USERS.standard_user);
-        const navigation = new NavigationComponent(loginPage.page);
+        const navigation = new NavigationComponent(page);
         await navigation.menuOpenButton.click();
         await navigation.logoutLink.click();
-        await expect(loginPage.page.getByTestId('login-button')).toBeVisible();
+        await expect(loginPage.loginButton).toBeVisible();
       });
 });
