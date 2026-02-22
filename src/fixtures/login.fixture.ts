@@ -1,0 +1,22 @@
+import { TestUser } from '../config';
+import { LoginPage } from '../pages/login.page';
+import { test as base } from '@playwright/test';
+
+type LoginFixtures = {
+  loginPage: LoginPage;
+  loginAs: (user: TestUser) => Promise<void>;
+};
+
+export const test = base.extend<LoginFixtures>({
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
+  },
+  loginAs: async ({ page }, use) => {
+    const loginPage = new LoginPage(page);
+    await use(async (user: TestUser) => {
+      await loginPage.login(user);
+    });
+  },
+});
+
+export { expect } from '@playwright/test';
