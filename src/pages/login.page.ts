@@ -2,16 +2,18 @@ import { Locator, Page, expect } from '@playwright/test';
 import { TestUser } from '@config';
 
 export class LoginPage {
-  readonly page: Page;
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly loginButton: Locator;
+  constructor(readonly page: Page) {}
 
-  constructor(page: Page) {
-    this.page = page;
-    this.usernameInput = page.getByTestId('username');
-    this.passwordInput = page.getByTestId('password');
-    this.loginButton = page.getByTestId('login-button');
+  get usernameInput() {
+    return this.page.getByTestId('username');
+  }
+
+    get passwordInput() {
+    return this.page.getByTestId('password');
+  }
+
+  get loginButton() {
+    return this.page.getByTestId('login-button');
   }
 
   getErrorMessage() {
