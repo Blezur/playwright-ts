@@ -15,7 +15,6 @@
       "@config": ["./src/config.ts"],
       "@components/*": ["./src/components/*"],
       "@fixtures/*": ["./src/fixtures/*"],
-      "@models/*": ["./src/models/*"],
       "@pages/*": ["./src/pages/*"],
       "@helpers/*": ["./src/helpers/*"]
     }

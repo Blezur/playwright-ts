@@ -1,10 +1,11 @@
-import type { TestUser } from "./models/testuser.model";
+export interface TestUser {
+  username: string;
+  password: string;
+}
 
 const DEFAULT_PASSWORD = 'secret_sauce';
 
-type TestUserNames = 'standard_user' | 'locked_out_user' | 'problem_user' | 'performance_glitch_user' | 'error_user' | 'visual_user';
-
-export const TEST_USERS: Record<TestUserNames, TestUser> = {
+export const TEST_USERS: Record<string, TestUser> = {
   standard_user: {
     username: 'standard_user',
     password: DEFAULT_PASSWORD,
