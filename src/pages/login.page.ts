@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import type { TestUser } from '@config';
+import type { TestUser } from '@models/testuser.model';
 
 export class LoginPage {
   constructor(readonly page: Page) {}

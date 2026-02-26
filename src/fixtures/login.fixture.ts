@@ -1,6 +1,6 @@
-import type { TestUser } from '@config';
-import { LoginPage } from '@pages/login.page';
 import { test as base } from '@playwright/test';
+import { LoginPage } from '@pages/login.page';
+import type { TestUser } from '@models/testuser.model';
 
 type LoginFixtures = {
   loginPage: LoginPage;
