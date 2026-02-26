@@ -1,4 +1,4 @@
-import type { TestUser } from '@config';
+import type { TestUser } from '@models/testuser.model';
 import { LoginPage } from '@pages/login.page';
 import { test as base } from '@playwright/test';
 
